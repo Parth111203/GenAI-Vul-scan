@@ -5,120 +5,146 @@ app = Flask(__name__)
 
 
 HTML = """
-
 <!DOCTYPE html>
 <html>
 
 <head>
-
-<title>Cyber Recon Scanner</title>
+<title>Vulnerability Assessment Dashboard</title>
 
 <style>
 
-body{
-    background:#000;
-    color:#00ff41;
-    font-family:'Courier New', monospace;
-    padding:30px;
+body {
+    background: #0f172a;
+    color: #e2e8f0;
+    font-family: Arial, sans-serif;
+    margin: 0;
 }
 
 
-.container{
+.header {
+    background: #111827;
+    padding: 25px;
+    text-align: center;
+    border-bottom: 1px solid #334155;
+}
 
-    max-width:900px;
-    margin:auto;
+
+.header h1 {
+    margin: 0;
+    color: #38bdf8;
+}
+
+
+.header p {
+    color: #94a3b8;
+}
+
+
+.container {
+    width: 80%;
+    margin: 30px auto;
+}
+
+
+.card {
+
+    background: #1e293b;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    border:1px solid #334155;
 
 }
 
 
-h1{
+label {
 
-    text-align:center;
-    font-size:40px;
-    text-shadow:0 0 10px #00ff41;
-
-}
-
-
-.subtitle{
-
-    text-align:center;
-    color:#00aaaa;
-}
-
-
-.card{
-
-    border:1px solid #00ff41;
-    padding:25px;
-    border-radius:10px;
-    box-shadow:0 0 20px #00ff41;
+    display:block;
+    margin-bottom:10px;
+    color:#cbd5e1;
 
 }
 
 
-input{
+input {
 
     width:70%;
-    padding:15px;
-    background:black;
-    color:#00ff41;
-    border:1px solid #00ff41;
-    font-size:18px;
-
-}
-
-
-button{
-
-    padding:15px 30px;
-    background:#00ff41;
-    color:black;
-    border:none;
-    font-weight:bold;
-    cursor:pointer;
+    padding:12px;
+    background:#0f172a;
+    color:white;
+    border:1px solid #475569;
+    border-radius:5px;
     font-size:16px;
 
 }
 
 
-button:hover{
+button {
 
-    background:black;
-    color:#00ff41;
-    border:1px solid #00ff41;
+    padding:12px 25px;
+    background:#0284c7;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    margin-left:10px;
 
 }
 
 
-.terminal{
+button:hover {
 
-    margin-top:30px;
-    background:#050505;
-    border:1px solid #00ff41;
+    background:#0369a1;
+
+}
+
+
+.status {
+
+    display:flex;
+    gap:20px;
+
+}
+
+
+.box {
+
+    flex:1;
+    background:#0f172a;
     padding:20px;
-    height:450px;
+    border-radius:8px;
+    border:1px solid #334155;
+}
+
+
+.box h3 {
+
+    color:#38bdf8;
+
+}
+
+
+.output {
+
+    background:#020617;
+    color:#22c55e;
+    padding:20px;
+    border-radius:8px;
+    height:400px;
     overflow:auto;
+    font-family:monospace;
     white-space:pre-wrap;
 
 }
 
 
-.status{
-
-    color:#00ffff;
-
-}
-
-
-.footer{
+.footer {
 
     text-align:center;
-    margin-top:20px;
-    color:#777;
+    color:#64748b;
+    padding:20px;
 
 }
-
 
 </style>
 
@@ -126,33 +152,33 @@ button:hover{
 </head>
 
 
-
 <body>
+
+
+<div class="header">
+
+<h1>Security Vulnerability Assessment Tool</h1>
+
+<p>Automated Website Reconnaissance and Vulnerability Scanner</p>
+
+</div>
+
 
 
 <div class="container">
 
 
-<h1>
-☠ CYBER RECON SCANNER ☠
-</h1>
-
-
-<p class="subtitle">
-Automated Website Vulnerability Assessment Tool
-</p>
-
-
-
 <div class="card">
+
+<h2>Start Security Scan</h2>
 
 
 <form method="POST">
 
 
-<p>
-root@scanner:~$ Enter Target Domain
-</p>
+<label>
+Target Website
+</label>
 
 
 <input 
@@ -163,7 +189,7 @@ required>
 
 
 <button>
-START SCAN
+Run Scan
 </button>
 
 
@@ -175,19 +201,34 @@ START SCAN
 
 
 
-<div class="terminal">
+<div class="status">
 
-{% if result %}
 
-{{result}}
+<div class="box">
 
-{% else %}
+<h3>Scanner</h3>
 
-Waiting for target...
+<p>Active</p>
 
-_
+</div>
 
-{% endif %}
+
+<div class="box">
+
+<h3>Tools</h3>
+
+<p>Nmap | Curl | OpenSSL | Whois</p>
+
+</div>
+
+
+<div class="box">
+
+<h3>Mode</h3>
+
+<p>Recon + Vulnerability Check</p>
+
+</div>
 
 
 </div>
@@ -195,12 +236,40 @@ _
 
 
 
-<p class="footer">
 
-Powered by Nmap | Curl | OpenSSL | WHOIS
+<div class="card">
 
-</p>
 
+<h2>Scan Result</h2>
+
+
+<div class="output">
+
+{% if result %}
+
+{{result}}
+
+{% else %}
+
+Waiting for scan...
+
+{% endif %}
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+<div class="footer">
+
+PGCP-ITISS Mini Project | Website Vulnerability Scanner
 
 </div>
 
@@ -213,27 +282,26 @@ Powered by Nmap | Curl | OpenSSL | WHOIS
 """
 
 
-
 @app.route("/", methods=["GET","POST"])
 def home():
 
-    result=""
+    result = ""
 
 
-    if request.method=="POST":
+    if request.method == "POST":
 
-        domain=request.form["domain"]
-
-
-        result="[*] Initializing scan...\n\n"
+        domain = request.form["domain"]
 
 
-        scan=subprocess.getoutput(
-            f"bash vul-scanner.sh {domain}"
-        )
+        try:
 
+            result = subprocess.getoutput(
+                f"bash vul-scanner.sh {domain}"
+            )
 
-        result += scan
+        except Exception as e:
+
+            result = str(e)
 
 
 
@@ -244,7 +312,7 @@ def home():
 
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
 
     app.run(
         host="0.0.0.0",
