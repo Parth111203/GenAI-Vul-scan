@@ -1,0 +1,44 @@
+Scan Report for iacsd.com
+Scan Time: Monday 20 July 2026 03:35:51 PM IST
+----------------------------------
+[OK] Site reachable
+HTTP Status Code: 415
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-07-20 15:35 +0530
+Nmap scan report for iacsd.com (148.66.138.193)
+Host is up (0.079s latency).
+rDNS record for 148.66.138.193: 193.138.66.148.host.secureserver.net
+Not shown: 998 filtered tcp ports (no-response)
+PORT    STATE SERVICE
+80/tcp  open  http
+443/tcp open  https
+
+Nmap done: 1 IP address (1 host up) scanned in 8.20 seconds
+HTTP/2 415 
+x-powered-by: PHP/7.3.33
+content-type: text/html; charset=UTF-8
+date: Mon, 20 Jul 2026 10:06:02 GMT
+server: Apache
+
+Security Header Analysis:
+[VULN] Missing X-Frame-Options
+[VULN] Missing CSP
+[VULN] Missing HSTS
+[VULN] Missing X-Content-Type-Options
+[VULN] Missing Referrer-Policy
+[OK] HTTPS supported
+notBefore=Jun 24 10:37:17 2026 GMT
+notAfter=Jan  8 10:37:17 2027 GMT
+server: Apache
+[INFO] Server info exposed
+   Domain Name: IACSD.COM
+   Registry Domain ID: 72546845_DOMAIN_COM-VRSN
+   Registrar WHOIS Server: whois.godaddy.com
+   Registrar URL: http://www.godaddy.com
+   Updated Date: 2026-05-27T07:25:06Z
+   Creation Date: 2001-06-12T16:23:37Z
+   Registry Expiry Date: 2027-06-12T16:23:37Z
+   Registrar: GoDaddy.com, LLC
+   Registrar IANA ID: 146
+   Registrar Abuse Contact Email: abuse@godaddy.com
+[OK] No robots.txt
+[OK] No simple XSS
